@@ -43,6 +43,9 @@ div.grid2 {
 
 div.grid3 {
 	background-color: blue;
+	animation-name: example;    /*動畫名稱，需與 keyframe 名稱對應*/
+    animation-duration: 4s;    /*動畫持續時間，單位為秒*/  /*動畫延遲開始時間*/
+    animation-iteration-count: infinite;    /*動畫次數，infinite 為無限次*/
 }
 
 div.grid4 {
@@ -73,4 +76,8 @@ div.grid4 {
 @keyframes heartbeat {
 	from {transform: scale(1,1); color: white;}
 	to {transform: scale(1.2,1.2); color: red;}
+}
+@keyframes example {
+	from {background-color: white;}
+	to {background-color: gray;}
 }
