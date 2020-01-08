@@ -14,7 +14,7 @@ $(document).ready(function() {
 		//中央氣象局 F-C0032-001 一般天氣預報-今明 36 小時天氣預報資料 API 全部縣市
 		var url_all = "https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=" + Your_Weather_API_key + "&format=JSON";
 		//中央氣象局 F-C0032-001 一般天氣預報-今明 36 小時天氣預報資料 API by 縣市
-		var url_city = "https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=" + Your_Weather_API_key + "&format=JSON&locationName=";
+		var url_city = "https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-091?Authorization=" + Your_Weather_API_key + "&format=JSON&locationName=";
 		var jqxhr = $.getJSON(url_city + city_name, function() {
 			// console.log("Get Taiwan weather success.");
 		})
@@ -67,9 +67,9 @@ $(document).ready(function() {
 			$("#day4-high-low").text(minT_3 + "~" + maxT_3 + "°C");
 			
 			//降雨機率 #day2-precip, day3-precip, day4-precip
-			var rain_1 = arr.records.location[0].weatherElement[1].time[0].parameter.parameterName;
-			var rain_2 = arr.records.location[0].weatherElement[1].time[1].parameter.parameterName;
-			var rain_3 = arr.records.location[0].weatherElement[1].time[2].parameter.parameterName;
+			var rain_1 = arr.records.locations[0].location[0].weatherElement[0].time[0].elementValue[0].value;
+			var rain_2 = arr.records.locations[0].location[0].weatherElement[0].time[0].elementValue[1].value;
+			var rain_3 = arr.records.locations[0].location[0].weatherElement[0].time[0].elementValue[2].value;
 			$("#day2-precip").text(rain_1 + "%");
 			$("#day3-precip").text(rain_2 + "%");
 			$("#day4-precip").text(rain_3 + "%");
