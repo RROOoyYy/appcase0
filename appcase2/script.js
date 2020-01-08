@@ -22,9 +22,9 @@ $(document).ready(function() {
 			console.log("The second success.");
 			// var outStr = JSON.stringify(arr);
 			
-			var time_1 = arr.records.location[0].weatherElement[0].time[0].startTime.substr(5,8).replace("-","/") + "時";
-			var time_2 = arr.records.location[0].weatherElement[0].time[1].startTime.substr(5,8).replace("-","/") + "時";
-			var time_3 = arr.records.location[0].weatherElement[0].time[2].startTime.substr(5,8).replace("-","/") + "時";
+			var time_1 = arr.records.locations[0].location[0].weatherElement[0].time[0].startTime.substr(6,5).replace("-","/") + "日";
+			var time_2 = arr.records.locations[0].location[0].weatherElement[0].time[1].startTime.substr(6,5).replace("-","/") + "日";
+			var time_3 = arr.records.locations[0].location[0].weatherElement[0].time[2].startTime.substr(6,5).replace("-","/") + "日";
 			//主時間 Day 2, 3, 4 時間資料 #date, #day2, day3, day4
 			$("#city").text(city_name);
 			$("#date").text(time_1.substr(0,5));
@@ -33,16 +33,16 @@ $(document).ready(function() {
 			$("#day4").text(time_3);
 			
 			//天氣概況 #weather-description
-			var weather_1 = arr.records.location[0].weatherElement[0].time[0].parameter.parameterName;
-			var weather_value_1 = arr.records.location[0].weatherElement[0].time[0].parameter.parameterValue;
-			var weather_value_2 = arr.records.location[0].weatherElement[0].time[1].parameter.parameterValue;
-			var weather_value_3 = arr.records.location[0].weatherElement[0].time[2].parameter.parameterValue;
+			var weather_1 = arr.records.locations[0].location[0].weatherElement[6].time[0].elementValue[0].value;
+			var weather_value_1 = arr.records.locations[0].location[0].weatherElement[6].time[1].elementValue[1].value.substr(1);
+			var weather_value_2 = arr.records.locations[0].location[0].weatherElement[6].time[2].elementValue[1].value.substr(1);
+			var weather_value_3 = arr.records.locations[0].location[0].weatherElement[6].time[3].elementValue[1].value.substr(1);
 			$("#weather-description").text(weather_1);
 			//skycons.set("weather-icon", icon); https://github.com/darkskyapp/skycons {"clear-day", "clear-night", "partly-cloudy-day", "partly-cloudy-night", "cloudy", "rain", "sleet", "snow", "wind", "fog"}
 			//Use dictionary to map weather icon (ForecastElement.PDF)
 			var weather_dict = {1:"clear-day",2:"partly-cloudy-day",3:"partly-cloudy-day",4:"partly-cloudy-day",5:"cloudy",6:"cloudy",7:"cloudy",8:"rain",9:"rain"};
 			
-			// console.log(weather_value_1,weather_value_2,weather_value_3);
+			console.log(weather_value_1,weather_value_2,weather_value_3);
 			var skycons = new Skycons({"color": "#A9DD9B"});
 			skycons.set("weather-icon", weather_dict[weather_value_1]);
 			skycons.set("weather-icon-day2", weather_dict[weather_value_1]);
@@ -51,25 +51,25 @@ $(document).ready(function() {
 			skycons.play();
 			
 			//舒適度 #feels-like
-			var fl_1 = arr.records.location[0].weatherElement[3].time[0].parameter.parameterName;
+			var fl_1 = arr.records.locations[0].location[0].weatherElement[4].time[0].elementValue[1].measures;
 			$("#feels-like").text(fl_1);
 			
 			//溫度 #temp #day2-high-low, day3-high-low, day4-high-low
-			var minT_1 = arr.records.location[0].weatherElement[2].time[0].parameter.parameterName;
-			var minT_2 = arr.records.location[0].weatherElement[2].time[1].parameter.parameterName;
-			var minT_3 = arr.records.location[0].weatherElement[2].time[2].parameter.parameterName;
-			var maxT_1 = arr.records.location[0].weatherElement[4].time[0].parameter.parameterName;
-			var maxT_2 = arr.records.location[0].weatherElement[4].time[1].parameter.parameterName;
-			var maxT_3 = arr.records.location[0].weatherElement[4].time[2].parameter.parameterName;
+			var minT_1 = arr.records.locations[0].location[0].weatherElement[8].time[0].elementValue[0].value;
+			var minT_2 = arr.records.locations[0].location[0].weatherElement[8].time[1].elementValue[0].value;
+			var minT_3 = arr.records.locations[0].location[0].weatherElement[8].time[2].elementValue[0].value;
+			var maxT_1 = arr.records.locations[0].location[0].weatherElement[5].time[0].elementValue[0].value;
+			var maxT_2 = arr.records.locations[0].location[0].weatherElement[5].time[1].elementValue[0].value;
+			var maxT_3 = arr.records.locations[0].location[0].weatherElement[5].time[2].elementValue[0].value;
 			$("#temp").text(Math.round((Number(minT_1) + Number(maxT_1)) / 2) + "°");
 			$("#day2-high-low").text(minT_1 + "~" + maxT_1 + "°C");
 			$("#day3-high-low").text(minT_2 + "~" + maxT_2 + "°C");
 			$("#day4-high-low").text(minT_3 + "~" + maxT_3 + "°C");
 			
 			//降雨機率 #day2-precip, day3-precip, day4-precip
-			var rain_1 = arr.records.locations[0].location[0].weatherElement[0].time[0].elementValue[0].value;
-			var rain_2 = arr.records.locations[0].location[0].weatherElement[0].time[0].elementValue[1].value;
-			var rain_3 = arr.records.locations[0].location[0].weatherElement[0].time[0].elementValue[2].value;
+			var rain_1 = arr.records.locations[0].location[0].weatherElement[0].time[2].elementValue[0].value;
+			var rain_2 = arr.records.locations[0].location[0].weatherElement[0].time[4].elementValue[0].value;
+			var rain_3 = arr.records.locations[0].location[0].weatherElement[0].time[5].elementValue[0].value;
 			$("#day2-precip").text(rain_1 + "%");
 			$("#day3-precip").text(rain_2 + "%");
 			$("#day4-precip").text(rain_3 + "%");
