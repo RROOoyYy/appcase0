@@ -1,0 +1,16 @@
+div.container {
+    width: 210px;
+    height: 360px;
+    margin: 0px auto;
+    background-color: blue;
+   }
+   
+   div.grid {
+    width: 185px;
+    height: 80px;
+    margin: 5px;
+    line-height: 180px;
+    box-shadow: 5px 5px 5px black;
+    font-size: 10px;
+    display: inline-block;
+   }
